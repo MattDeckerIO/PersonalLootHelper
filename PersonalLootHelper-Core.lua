@@ -1480,7 +1480,7 @@ local function CreateLootedItemsDisplay()
 		SaveMainWindowPosition()
 	end)
 	lootedItemsFrame:SetResizable(true)
-	lootedItemsFrame:SetResizeBounds(100, 50, 600, 300)
+	lootedItemsFrame:SetMinResize(100, 50, 600, 300)
 	--lootedItemsFrame:SetMaxResize(600, 300)
 
 	if lootedItemsFrame:GetHeight() == nil or lootedItemsFrame:GetHeight() == 0 then  	-- first try repositioning/resizing from layout-local.txt
