@@ -610,12 +610,12 @@ local function GetFullItemInfo(item)
 		if fullItemInfo[FII_IS_EQUIPPABLE] then
 
 			-- set up the tooltip to determine values that aren't returned via GetItemInfo()
-			tooltipLong = tooltipLong or PLH_CreateEmptyTooltip()
-			tooltipLong:ClearLines()
-			tooltipLong:SetHyperlink(item)
+			-- tooltipLong = tooltipLong or PLH_CreateEmptyTooltip()
+			-- tooltipLong:ClearLines()
+			-- tooltipLong:SetHyperlink(item)
 
 			-- determine the real iLVL
-			local realILVL = GetILVLFromTooltip(tooltipLong)
+			local realILVL = 9999
 			if realILVL == nil then  -- if we still couldn't find it (shouldn't happen), just use the base ilvl we got from GetItemInfo()
 				realILVL = fullItemInfo[FII_BASE_ILVL]
 			end
@@ -633,26 +633,26 @@ local function GetFullItemInfo(item)
 			local text
 
 			local index = 6 -- the elements we're looking for are all further down in the tooltip
-			while tooltipLong.leftside[index] do
-				text = tooltipLong.leftside[index]:GetText()
-				if text ~= nil then
-					hasBindTradeTimeWarning = hasBindTradeTimeWarning or text:match(BIND_TRADE_TIME_REMAINING_PATTERN)
-					classes = classes or text:match(ITEM_CLASSES_ALLOWED_PATTERN)
-					hasSocket = hasSocket or text:find(_G.EMPTY_SOCKET_PRISMATIC) == 1
-					hasAvoidance = hasAvoidance or text:find(_G.STAT_AVOIDANCE) ~= nil
-					hasIndestructible = hasIndestructible or text:find(_G.STAT_STURDINESS) == 1
-					hasLeech = hasLeech or text:find(_G.STAT_LIFESTEAL) ~= nil
-					hasSpeed = hasSpeed or text:find(_G.STAT_SPEED) ~= nil
-					xmoggable = xmoggable or text:find(TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN_PATTERN) ~= nil or text:find(TRANSMOGRIFY_TOOLTIP_ITEM_UNKNOWN_APPEARANCE_KNOWN_PATTERN) ~= nil
-					isAzeriteItem = isAzeriteItem or text:match(TOOLTIP_AZERITE_UNLOCK_LEVELS_PATTERN) ~= nil or text:match(CURRENTLY_SELECTED_AZERITE_POWERS_PATTERN) ~= nil
-				end
-				index = index + 1
-			end
+			-- while tooltipLong.leftside[index] do
+			-- 	text = tooltipLong.leftside[index]:GetText()
+			-- 	if text ~= nil then
+			-- 		hasBindTradeTimeWarning = hasBindTradeTimeWarning or text:match(BIND_TRADE_TIME_REMAINING_PATTERN)
+			-- 		classes = classes or text:match(ITEM_CLASSES_ALLOWED_PATTERN)
+			-- 		hasSocket = hasSocket or text:find(_G.EMPTY_SOCKET_PRISMATIC) == 1
+			-- 		hasAvoidance = hasAvoidance or text:find(_G.STAT_AVOIDANCE) ~= nil
+			-- 		hasIndestructible = hasIndestructible or text:find(_G.STAT_STURDINESS) == 1
+			-- 		hasLeech = hasLeech or text:find(_G.STAT_LIFESTEAL) ~= nil
+			-- 		hasSpeed = hasSpeed or text:find(_G.STAT_SPEED) ~= nil
+			-- 		xmoggable = xmoggable or text:find(TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN_PATTERN) ~= nil or text:find(TRANSMOGRIFY_TOOLTIP_ITEM_UNKNOWN_APPEARANCE_KNOWN_PATTERN) ~= nil
+			-- 		isAzeriteItem = isAzeriteItem or text:match(TOOLTIP_AZERITE_UNLOCK_LEVELS_PATTERN) ~= nil or text:match(CURRENTLY_SELECTED_AZERITE_POWERS_PATTERN) ~= nil
+			-- 	end
+			-- 	index = index + 1
+			-- end
 
-			if classes ~= nil then
-				classes = string.upper(classes)
-				classes = string.gsub(classes, ' ', '')  -- remove space for DEMON HUNTER, DEATH KNIGHT
-			end
+			-- if classes ~= nil then
+			-- 	classes = string.upper(classes)
+			-- 	classes = string.gsub(classes, ' ', '')  -- remove space for DEMON HUNTER, DEATH KNIGHT
+			-- end
 
 --			if hasBindTradeTimeWarning then
 --				print("SETTING FII_TRADE_TIME_WARNING_SHOWN TO TRUE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -951,43 +951,6 @@ local function IsPLHUser(characterName)
 end
 
 --[[ FUNCTIONS FOR DISPLAYING THE LOOTED ITEMS WINDOW ]]--
-
-local function IsEnchanting(profession)
-	if profession ~= nil then
-		return select(7, GetProfessionInfo(profession)) == 333
-	else
-		return false
-	end
-end
-
-local function IsEnchanter()
-	local profession1, profession2 = GetProfessions()
-	return IsEnchanting(profession1) or IsEnchanting(profession2)
-end
-
---[[
-local function CanBeXMogged(itemEquipLoc)
-	return itemEquipLoc == 'INVTYPE_HEAD'
-		or itemEquipLoc == 'INVTYPE_SHOULDER'
-		or itemEquipLoc == 'INVTYPE_CLOAK'
-		or itemEquipLoc == 'INVTYPE_CHEST'
-		or itemEquipLoc == 'INVTYPE_ROBE'
-		or itemEquipLoc == 'INVTYPE_WAIST'
-		or itemEquipLoc == 'INVTYPE_LEGS'
-		or itemEquipLoc == 'INVTYPE_FEET'
-		or itemEquipLoc == 'INVTYPE_WRIST'
-		or itemEquipLoc == 'INVTYPE_HAND'
-		or itemEquipLoc == 'INVTYPE_WEAPON'
-		or itemEquipLoc == 'INVTYPE_SHIELD'
-		or itemEquipLoc == 'INVTYPE_2HWEAPON'
-		or itemEquipLoc == 'INVTYPE_WEAPONMAINHAND'
-		or itemEquipLoc == 'INVTYPE_WEAPONOFFHAND'
-		or itemEquipLoc == 'INVTYPE_HOLDABLE'
-		or itemEquipLoc == 'INVTYPE_RANGED'
-		or itemEquipLoc == 'INVTYPE_THROWN'
-		or itemEquipLoc == 'INVTYPE_RANGEDRIGHT'
-end
-]]--
 
 -- This is a bit of a hack.  The user could still mouseover widgets that weren't within the visible area of
 -- lootedItemsFrame, so lets only show the buttons/tooltips if the widget is really visible
@@ -1345,10 +1308,6 @@ local function UpdateLootedItemsDisplay()
 					end
 				elseif lootedItem[CONFIRMATION_MESSAGE] ~= nil then
 					text = lootedItem[CONFIRMATION_MESSAGE]
---				elseif lootedItemStatus == STATUS_REQUESTED then
---					text = "You requested this item"
---				elseif lootedItemStatus == STATUS_REQUESTED_VIA_WHISPER then
---					text = "You whispered " .. Ambiguate(lootedItem[LOOTER_NAME], 'all') .. " to request this item"
 				end
 
 				if text ~= '' then
@@ -2097,92 +2056,27 @@ local function GetNames(namelist, limit)
 	return names
 end
 
--- Checks whether or not the loot items should be added to the lootedItems array; adds item if it meets the criteria
+-- Kirron - Always add all loot to the frame
 local function PerformNotify(fullItemInfo, looterName)
-	if ShouldBeEvaluated(fullItemInfo) then
-		if IsPlayer(looterName) then
---			local isTradeable = fullItemInfo[FII_TRADE_TIME_WARNING_SHOWN] or not IsAnUpgradeForCharacter(fullItemInfo, looterName)
-			local isTradeable = not IsAnUpgradeForCharacter(fullItemInfo, looterName, 0, true)
-			if isTradeable then
-
-				local isAnUpgradeForAnyCharacter, isAnUpgradeForAnyCharacterNames = IsAnUpgradeForAnyCharacter(fullItemInfo)
-
-				if PLH_GetNumberOfPLHUsers() > 1 then
-					if not PLH_PREFS[PLH_PREFS_ONLY_OFFER_IF_UPGRADE] or isAnUpgradeForAnyCharacter then
-						AddLootedItem(fullItemInfo, looterName)
-						UpdateLootedItemsDisplay()
-					end
-				end
-				if PLH_PREFS[PLH_PREFS_SHOW_TRADEABLE_ALERT] then
-					if isAnUpgradeForAnyCharacter then
-						local names = GetNames(isAnUpgradeForAnyCharacterNames, 5)
-						PLH_SendAlert('You can trade ' .. fullItemInfo[FII_ITEM] .. ', which is an ilvl upgrade for ' .. names)
-						PlaySound(600)  -- 'GLUECREATECHARACTERBUTTON'
-					end
-				end			
-			end
-		elseif not IsPLHUser(looterName) and fullItemInfo[FII_BIND_TYPE] ~= LE_ITEM_BIND_ON_EQUIP and not IsAnUpgradeForCharacter(fullItemInfo, looterName, 0, true) then
-			if shouldAddLootedItem(fullItemInfo) then
-				AddLootedItem(fullItemInfo, looterName)
-				UpdateLootedItemsDisplay()
-			elseif ShouldAnnounceTrades() then
-				AddLootedItem(fullItemInfo, looterName, STATUS_HIDDEN)
-			end
-		end
-	end
+	-- print('PerformNotify')
+	AddLootedItem(fullItemInfo, looterName)
+	UpdateLootedItemsDisplay()
 end
 
 -- Event handler for CHAT_MSG_LOOT event
+-- Kirron this appears to be the function for when loot is dropped.
 local function LootReceivedEvent(self, event, ...)
 	local LOOT_ITEM_SELF_PATTERN 			= _G.LOOT_ITEM_SELF:gsub('%%s', '(.+)')				-- You receive loot: (.+)
 	local LOOT_ITEM_PATTERN					= _G.LOOT_ITEM:gsub('%%s', '(.+)')					-- (.+) receives loot: (.+)
---[[
-	if event == 'SHOW_LOOT_TOAST' then
-		local typeIdentifier, itemLink, quantity, specID, sex, personalLootToast, ITEM_TOAST_METHOD_LOOT, lessAwesome, upgraded = ...
-		print('received SHOW_LOOT_TOAST event')
-		print(typeIdentifier)
-		print(itemLink)
-		print(quantity)
-		print(specID)
-		print(sex)
-		print(personalLootToast)
-		print(ITEM_TOAST_METHOD_LOOT)
-		print(lessAwesome)
-		print(upgraded)
-		return
-	end
-]]--	
---[[	
-	sample from an epic that dropped during CoS run:
-		event is SHOW_LOOT_TOAST
-		item
-		[item]
-		1
-		0
-		2
-		false
-		3
-		false
-		true (item had socket)
-		
-	{ Name = "typeIdentifier", Type = "string", Nilable = false },
-	{ Name = "itemLink", Type = "string", Nilable = false },
-	{ Name = "quantity", Type = "number", Nilable = false },
-	{ Name = "specID", Type = "number", Nilable = false },
-	{ Name = "sex", Type = "number", Nilable = false },
-	{ Name = "personalLootToast", Type = "bool", Nilable = false },
-	{ Name = "ITEM_TOAST_METHOD_LOOT", Type = "number", Nilable = false },
-	{ Name = "lessAwesome", Type = "bool", Nilable = false },
-	{ Name = "upgraded", Type = "bool", Nilable = false },
-]]--
-	
 	local message, _, _, _, looter = ...
 	local lootedItem = message:match(LOOT_ITEM_SELF_PATTERN)
+
 	if lootedItem == nil then
 		_, lootedItem = message:match(LOOT_ITEM_PATTERN)
 	end
 
 	if lootedItem then
+		-- print('Someone looted something important.')
 		local fullItemInfo = GetFullItemInfo(lootedItem)
 		PerformNotify(fullItemInfo, PLH_GetFullName(looter))
 	end
