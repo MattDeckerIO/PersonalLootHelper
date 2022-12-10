@@ -210,7 +210,7 @@ function PLH_CreateOptionsPanel()
 	whisperMessageEditBox:SetTextInsets(4, 4, 4, 4)
 	whisperMessageEditBox:SetMaxLetters(100)
 	whisperMessageEditBox:SetAutoFocus(false)
-	whisperMessageEditBox:SetFont('Fonts\\FRIZQT__.TTF', 11)
+	whisperMessageEditBox:SetFont('Fonts\\FRIZQT__.TTF', 11,'MONOCHROME')
 	whisperMessageEditBox:SetPoint('TOPLEFT', whisperMessageLabel, 'BOTTOMLEFT', 20, -10)
 	whisperMessageEditBox:SetText(PLH_PREFS[PLH_PREFS_WHISPER_MESSAGE])
 	

@@ -683,8 +683,8 @@ local function IsTrinketUsable(item, role)
 	local trinketList = PLH_GetTrinketList(role)
 
 	if itemID ~= nil and trinketList ~= nil then
-		return trinketList[tonumber(itemID)]
-	else
+		return trinketList[tonumber(itemID)
+]	else
 		return false
 	end
 	]]--
@@ -1518,8 +1518,8 @@ local function CreateLootedItemsDisplay()
 		SaveMainWindowPosition()
 	end)
 	lootedItemsFrame:SetResizable(true)
-	lootedItemsFrame:SetMinResize(100, 50)
-	lootedItemsFrame:SetMaxResize(600, 300)
+	lootedItemsFrame:SetResizeBounds(100, 50, 600, 300)
+	--lootedItemsFrame:SetMaxResize(600, 300)
 
 	if lootedItemsFrame:GetHeight() == nil or lootedItemsFrame:GetHeight() == 0 then  	-- first try repositioning/resizing from layout-local.txt
 		if PLH_META[PLH_LOOTED_ITEMS_FRAME_X] ~= nil then								-- if we didn't have anything there (ex: after addon was disabled and renabled), try saved variables
