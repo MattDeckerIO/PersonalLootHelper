@@ -56,23 +56,21 @@ creates an empty tooltip that is ready to be populated with the information from
 	
 	rows - how many rows of the tooltip to populate; prior to version 1.24 we only cared about the first 6 rows, but to find the 'classes:' row we have to go much deeper
 ]]--
-function PLH_CreateEmptyTooltip(rows)
-    local tooltip = CreateFrame('GameTooltip')
-	local leftside = {}
-	local rightside = {}
-	local L, R
-    for i = 1, rows do
-        L, R = tooltip:CreateFontString(), tooltip:CreateFontString()
-        L:SetFontObject(GameFontNormal)
-        R:SetFontObject(GameFontNormal)
-        tooltip:AddFontStrings(L, R)
-        leftside[i] = L
-		rightside[i] = R
-    end
-    tooltip.leftside = leftside
-	tooltip.rightside = rightside
-	tooltip:SetOwner(UIParent, 'ANCHOR_NONE')
-    return tooltip
+
+function PLH_CreateEmptyTooltip()
+	local tip, leftside, rightside = CreateFrame("GameTooltip"), {}, {}
+	for x = 1,6 do
+	  local L,R = tip:CreateFontString(), tip:CreateFontString()
+	  L:SetFontObject(GameFontNormal)
+	  R:SetFontObject(GameFontNormal)
+	  tip:AddFontStrings(L,R)
+	  leftside[x] = L
+	  rightside[x] = R
+	end
+	tip.leftside = leftside
+	tip.rightside = rightside
+	tip:SetOwner(UIParent, 'ANCHOR_NONE')
+	return tip
 end
 
 local function GetNameWithoutSpacesInRealm(name)

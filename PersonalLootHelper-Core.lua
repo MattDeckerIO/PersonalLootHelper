@@ -610,7 +610,7 @@ local function GetFullItemInfo(item)
 		if fullItemInfo[FII_IS_EQUIPPABLE] then
 
 			-- set up the tooltip to determine values that aren't returned via GetItemInfo()
-			tooltipLong = tooltipLong or PLH_CreateEmptyTooltip(30)
+			tooltipLong = tooltipLong or PLH_CreateEmptyTooltip()
 			tooltipLong:ClearLines()
 			tooltipLong:SetHyperlink(item)
 
