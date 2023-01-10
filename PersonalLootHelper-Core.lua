@@ -2612,107 +2612,25 @@ function PLH_TestItem(item)
 	PLH_SendDebugMessage('   upgrade for any character = ' .. tostring(select(1, IsAnUpgradeForAnyCharacter(GetFullItemInfo(item)))))
 end
 
+function PLH_T(item)
+  print ("Kirron receives loot: " .. '\124cffa335ee\124Hitem:151973::::::::110::::2:3610:1472:\124h[Collar of Null-Flame]\124h\124r')
+end
+
 function PLH_Test()
-	-- 930 Neck
+	-- -- 930 Neck
 	PLH_TEST_ITEM_1 = '\124cffa335ee\124Hitem:151973::::::::110::::2:3610:1472:\124h[Collar of Null-Flame]\124h\124r'
 
-	-- 960 Ring
-	PLH_TEST_ITEM_2 = '\124cffa335ee\124Hitem:152063::::::::110::::2:1502:3611:\124h[Seal of the Portalmaster]\124h\124r'
+	-- -- 980 Leather Feet
+	PLH_TEST_ITEM_6 = '\124cffa335ee\124Hitem:151981::::::::110::::2:1522:3610:\124h[Life-Bearing Footpads]\124h\124r'
 
-	-- 845 Ring
-	PLH_TEST_ITEM_3 = '\124cff0070dd\124Hitem:137533::::::::110::::2:1826:1497:\124h[Ring of Minute Mirrors]\124h\124r'
-
-	-- 985 Leather Belt
-	PLH_TEST_ITEM_4 = '\124cffa335ee\124Hitem:151991::::::::110::::2:1527:3610:\124h[Belt of Fractured Sanity]\124h\124r'
-
-	-- 985 Cloth Helm
-	PLH_TEST_ITEM_5 = '\124cffa335ee\124Hitem:151943::::::::110::::2:1527:3610:\124h[Crown of Relentless Annihilation]\124h\124r'
-
-	-- 980 Leather Feet
-	PLH_TEST_ITEM_6 = '\124cffa335ee\124Hitem:151981::::::::110::::2:1522:3610:\124h[Life-Bearing Footpads]\124h\124r'	
-
-	-- 985 BoE Leather Feet
+	-- -- 985 BoE Leather Feet
 	PLH_TEST_ITEM_7 = '\124cffa335ee\124Hitem:147424::::::::110::::2:1567:3561:\124h[Treads of Violent Intrusion]\124h\124r'
 
-	-- 950 BoE Leater Feet
-	PLH_TEST_ITEM_8 = '\124cffa335ee\124Hitem:128885::::::::110::::2:669:1572:\124h[Dreadleather Footpads]\124h\124r' -- 950 leather BoE boots
-
-	-- 950 Leather Feet
-	PLH_TEST_ITEM_9 = '\124cffa335ee\124Hitem:152412::::::::110::::2:1492:3610:\124h[Depraved Machinist\'s Footpads]\124h\124r' -- 950 leather BoP boots
-
-	-- 985 BoE Leather Helm with sockets
-	PLH_TEST_ITEM_10 = '\124cffa335ee\124Hitem:151588::::::::110::::2:1572:3598:\124h[Empyrial Deep Crown]\124h\124r'
-
-	-- 950 BoE Leather Helm with sockets
-	PLH_TEST_ITEM_11 = "\124cffa335ee\124Hitem:151588::::::::110::::2:1537:3609:\124h[Empyrial Deep Crown]\124h\124r"
-
-	-- the test items from wowhead aren't fully formed, hence the strange looking call to GetItemInfo
-	PLH_TEST_ITEM_1 = select(2, GetItemInfo(PLH_TEST_ITEM_1))
-	PLH_TEST_ITEM_2 = select(2, GetItemInfo(PLH_TEST_ITEM_2))
-	PLH_TEST_ITEM_3 = select(2, GetItemInfo(PLH_TEST_ITEM_3))
-	PLH_TEST_ITEM_4 = select(2, GetItemInfo(PLH_TEST_ITEM_4))
-	PLH_TEST_ITEM_5 = select(2, GetItemInfo(PLH_TEST_ITEM_5))
-	PLH_TEST_ITEM_6 = select(2, GetItemInfo(PLH_TEST_ITEM_6))
-	PLH_TEST_ITEM_7 = select(2, GetItemInfo(PLH_TEST_ITEM_7))
-	PLH_TEST_ITEM_8 = select(2, GetItemInfo(PLH_TEST_ITEM_8))
-	PLH_TEST_ITEM_9 = select(2, GetItemInfo(PLH_TEST_ITEM_9))
-	PLH_TEST_ITEM_10 = select(2, GetItemInfo(PLH_TEST_ITEM_10))
-	PLH_TEST_ITEM_11 = select(2, GetItemInfo(PLH_TEST_ITEM_11))
-
-	--[[  DEMO step 1 ]]--
-	--PLH_SendDebugMessage("Adding " .. PLH_TEST_ITEM_1)
-	--PLH_SendDebugMessage("Adding " .. PLH_TEST_ITEM_7)
-	--PLH_SendDebugMessage("Adding " .. PLH_TEST_ITEM_6)
 	local playerName = UnitName('player') .. '-' .. GetRealmName()
 	LootReceivedEvent(self, nil, UnitName('player') .. ' receives loot: ' .. PLH_TEST_ITEM_1 .. '.', nil, nil, nil, playerName)
-	PLH_ProcessTradeItemMessage("Killindmice-Zul'jin", PLH_TEST_ITEM_7)
-	PLH_ProcessTradeItemMessage("Boomerz-Zul'jin", PLH_TEST_ITEM_6)
+	LootReceivedEvent(self, nil, 'Nerwin-Aerie Peak' .. ' receives loot: ' .. PLH_TEST_ITEM_6 .. '.', nil, nil, nil, 'Nerwin-Aerie Peak')
+	LootReceivedEvent(self, nil, 'Kagorak-Aerie Peak' .. ' receives loot: ' .. PLH_TEST_ITEM_7 .. '.', nil, nil, nil, 'Kagorak-Aerie Peak')
 
---[[	
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_1)
-	local lootString = 'Madone receives loot: ' .. PLH_TEST_ITEM_1 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Madone-Zul'jin")
-
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_2)
-	local lootString = 'Madone receives loot: ' .. PLH_TEST_ITEM_2 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Madone-Zul'jin")
-
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_3)
-	local lootString = 'Madone receives loot: ' .. PLH_TEST_ITEM_3 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Madone-Zul'jin")
-	
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_4)
-	local lootString = 'Killindmice receives loot: ' .. PLH_TEST_ITEM_4 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Killindmice-Zul'jin")
-	
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_5)
-	local lootString = 'ClothTest receives loot: ' .. PLH_TEST_ITEM_5 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "ClothTest-Staghelm")
-	
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_6)
-	local lootString = 'Roth receives loot: ' .. PLH_TEST_ITEM_6 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Roth-Zul'jin")
-	
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_7)
-	local lootString = 'Killindmice receives loot: ' .. PLH_TEST_ITEM_7 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Killindmice-Zul'jin")
-
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_8)
-	local lootString = 'Killindmice receives loot: ' .. PLH_TEST_ITEM_8 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Killindmice-Zul'jin")
-
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_9)
-	PLH_ProcessTradeItemMessage("PLHUser-Firetree", PLH_TEST_ITEM_9)
-
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_10)
-	local lootString = 'NonPLHUser receives loot: ' .. PLH_TEST_ITEM_10 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "NonPLHUser-Staghelm")
-	PLH_ProcessTradeItemMessage("Killindmice-Zul'jin", PLH_TEST_ITEM_10)
-
-	PLH_SendDebugMessage("Adding test item " .. PLH_TEST_ITEM_11)
-	local lootString = 'Madone receives loot: ' .. PLH_TEST_ITEM_11 .. '.'
-	LootReceivedEvent(self, nil, lootString, nil, nil, nil, "Madone-Zul'jin")
-]]--	
 end
 
 function PLH_Test2()
