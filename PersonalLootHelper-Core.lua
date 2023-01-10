@@ -155,7 +155,7 @@ local FII_ITEM						= 'ITEM'						-- item link
 local FII_QUALITY					= 'QUALITY'						-- return value 3 of Blizzard API call GetItemInfo()
 local FII_BASE_ILVL					= 'BASE_ILVL'					-- return value 4 of Blizzard API call GetItemInfo()
 local FII_REQUIRED_LEVEL			= 'REQUIRED_LEVEL'				-- return value 5 of Blizzard API call GetItemInfo()
---local FII_TYPE					= 'TYPE'						-- return value 6 of Blizzard API call GetItemInfo()
+local FII_TYPE						= 'TYPE'						-- return value 6 of Blizzard API call GetItemInfo()
 --local FII_SUB_TYPE				= 'SUB_TYPE'					-- return value 7 of Blizzard API call GetItemInfo()
 --local FII_MAX_STACK				= 'MAX_STACK'					-- return value 8 of Blizzard API call GetItemInfo()
 local FII_ITEM_EQUIP_LOC			= 'ITEM_EQUIP_LOC'				-- return value 9 of Blizzard API call GetItemInfo()
@@ -602,7 +602,7 @@ local function GetFullItemInfo(item)
 		fullItemInfo[FII_ITEM] = item
 		
 		-- determine the basic values from the Blizzard GetItemInfo() API call
-		_, _, fullItemInfo[FII_QUALITY], fullItemInfo[FII_BASE_ILVL], fullItemInfo[FII_REQUIRED_LEVEL], _, _, _, fullItemInfo[FII_ITEM_EQUIP_LOC], _, _, fullItemInfo[FII_CLASS], fullItemInfo[FII_SUB_CLASS], fullItemInfo[FII_BIND_TYPE], _, _, _ = GetItemInfo(item)
+		_, _, fullItemInfo[FII_QUALITY], fullItemInfo[FII_BASE_ILVL], fullItemInfo[FII_REQUIRED_LEVEL], fullItemInfo[FII_TYPE], _, _, fullItemInfo[FII_ITEM_EQUIP_LOC], _, _, fullItemInfo[FII_CLASS], fullItemInfo[FII_SUB_CLASS], fullItemInfo[FII_BIND_TYPE], _, _, _ = GetItemInfo(item)
 
 		-- determine whether the item is equippable
 		fullItemInfo[FII_IS_EQUIPPABLE] = IsEquippableItem(item)
