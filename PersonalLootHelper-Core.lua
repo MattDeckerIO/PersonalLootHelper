@@ -148,6 +148,8 @@ local COLOR_LOWER_ILVL 				= _G.RED_FONT_COLOR_CODE
 local COLOR_BOE						= _G.ORANGE_FONT_COLOR_CODE
 local COLOR_BUTTON_TEXT				= _G.YELLOW_FONT_COLOR_CODE
 
+local ITEM_FILTER					= { 'Armor', 'Weapon', 'Recipe' }
+
 -- Keys for the array returned by GetFullItemInfo()
 local FII_ITEM						= 'ITEM'						-- item link
 --local FII_NAME					= 'NAME'						-- return value 1 of Blizzard API call GetItemInfo()
@@ -602,6 +604,7 @@ local function GetFullItemInfo(item)
 		fullItemInfo[FII_ITEM] = item
 		
 		-- determine the basic values from the Blizzard GetItemInfo() API call
+		-- Kirron: Important Types: 'Armor', 'Weapon', 'Recipe'
 		_, _, fullItemInfo[FII_QUALITY], fullItemInfo[FII_BASE_ILVL], fullItemInfo[FII_REQUIRED_LEVEL], fullItemInfo[FII_TYPE], _, _, fullItemInfo[FII_ITEM_EQUIP_LOC], _, _, fullItemInfo[FII_CLASS], fullItemInfo[FII_SUB_CLASS], fullItemInfo[FII_BIND_TYPE], _, _, _ = GetItemInfo(item)
 
 		-- determine whether the item is equippable
@@ -1641,8 +1644,28 @@ local function GetLootedItem(looterName, lootedItemID)
 	return nil
 end
 
+local function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
 -- Adds the item to the lootedItems array; returns the index of the newly added item
 local function AddLootedItem(fullItemInfo, characterName, status)
+
+	-- Ignore items that are not of interest.
+	print('Loot item '.. fullItemInfo[FII_ITEM] .. ' is of type '.. fullItemInfo[FII_TYPE])
+	if not has_value(ITEM_FILTER, fullItemInfo[FII_TYPE]) then
+		print('Skipping loot item '.. fullItemInfo[FII_ITEM] .. ' due to type '.. fullItemInfo[FII_TYPE])
+		return
+	end
+
+	print('Adding loot item '.. fullItemInfo[FII_ITEM] .. ' due to type '.. fullItemInfo[FII_TYPE])
+
 	local lootedItemIndex = #lootedItems + 1
 
 	lootedItems[lootedItemIndex] = {}
